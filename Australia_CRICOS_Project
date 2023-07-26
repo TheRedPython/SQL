@@ -100,3 +100,27 @@ SELECT
     STDEV(Duration_Weeks) AS DurationWeeksStdDev,
     MAX(Duration_Weeks) - MIN(Duration_Weeks) AS DurationWeeksRange
 FROM CRICOS_CODE;
+
+
+-- Define the CTE
+WITH CTE_CourseCost AS (
+    SELECT Institution_Name, CRICOS_Course_Code, Course_Name, Field_of_Education_1_Detailed_Field, Course_Level,
+        Work_Component, Work_Component_Total_Hours, Duration_Weeks, Estimated_Total_Course_Cost
+    FROM CRICOS_CODE
+    WHERE Estimated_Total_Course_Cost <= 10000
+)
+
+-- Query the CTE and retrieve the results
+SELECT Institution_Name, CRICOS_Course_Code, Course_Name, Field_of_Education_1_Detailed_Field, Course_Level,
+    Work_Component, Work_Component_Total_Hours, Duration_Weeks, Estimated_Total_Course_Cost
+FROM CRICOS_CODE;
+
+
+
+-- Creating View to store data for later visualizations
+
+CREATE VIEW CourseCostView AS
+SELECT Institution_Name, CRICOS_Course_Code, Course_Name, Field_of_Education_1_Detailed_Field, Course_Level,
+    Work_Component, Work_Component_Total_Hours, Duration_Weeks, Estimated_Total_Course_Cost
+FROM CRICOS_CODE;
+
